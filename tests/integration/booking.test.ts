@@ -49,8 +49,7 @@ describe("GET /booking", () => {
 
   describe("when token is valid", () => {
     it("should respond with status 404 when user is not logged in", async () => {
-      const user = await createUser();
-      const token = await generateValidToken(user);
+      const token = await generateValidToken();
 
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
