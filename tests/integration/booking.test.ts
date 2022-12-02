@@ -4,7 +4,13 @@ import { TicketStatus } from "@prisma/client";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
 import supertest from "supertest";
-import { createUser, createHotel, createRoomWithHotelId, createBookingData } from "../factories";
+import { 
+  createUser, 
+  createHotel, 
+  createRoomWithHotelId, 
+  createBookingData,
+} from "../factories";
+
 import { cleanDb, generateValidToken } from "../helpers";
 
 beforeAll(async () => {
