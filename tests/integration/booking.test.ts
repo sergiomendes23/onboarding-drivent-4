@@ -1,14 +1,10 @@
 import app, { init } from "@/app";
 import faker from "@faker-js/faker";
+import { TicketStatus } from "@prisma/client";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
 import supertest from "supertest";
-import {
-  createUser,
-  createHotel,
-  createRoomWithHotelId,
-  createBookingData,
-} from "../factories";
+import { createUser, createHotel, createRoomWithHotelId, createBookingData } from "../factories";
 import { cleanDb, generateValidToken } from "../helpers";
 
 beforeAll(async () => {
@@ -52,7 +48,7 @@ describe("GET /booking", () => {
 
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
-      expect(response.status).toEqual(httpStatus.NOT_FOUND);
+      expect(response.status).toBe(httpStatus.NOT_FOUND);
     });
     it("should respond with status 200 when booking is included in rooms data", async () => {
       const user = await createUser();
@@ -63,7 +59,7 @@ describe("GET /booking", () => {
 
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
-      expect(response.status).toEqual(httpStatus.OK);
+      expect(response.status).toBe(httpStatus.OK);
       expect(response.body).toEqual({
         id: booking.id,
         Room: {
