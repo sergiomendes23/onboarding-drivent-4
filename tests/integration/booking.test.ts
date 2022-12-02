@@ -4,10 +4,10 @@ import { TicketStatus } from "@prisma/client";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
 import supertest from "supertest";
-import { 
-  createUser, 
-  createHotel, 
-  createRoomWithHotelId, 
+import {
+  createUser,
+  createHotel,
+  createRoomWithHotelId,
   createBookingData,
 } from "../factories";
 
@@ -25,7 +25,7 @@ const server = supertest(app);
 
 describe("GET /booking", () => {
   it("should respond with status 401 if no token is given", async () => {
-    const response = await server.get("/hotels");
+    const response = await server.get("/booking");
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -33,7 +33,7 @@ describe("GET /booking", () => {
   it("should respond with status 401 if given token is not valid", async () => {
     const token = faker.lorem.word();
 
-    const response = await server.get("/hotels").set("Authorization", `Bearer ${token}`);
+    const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -42,15 +42,15 @@ describe("GET /booking", () => {
     const userWithoutSession = await createUser();
     const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-    const response = await server.get("/hotels").set("Authorization", `Bearer ${token}`);
+    const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
 
   describe("when token is valid", () => {
     it("should respond with status 404 when user is not logged in", async () => {
-      const token = await generateValidToken();
-
+      const user = await createUser();
+      const token = await generateValidToken(user);
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(httpStatus.NOT_FOUND);
