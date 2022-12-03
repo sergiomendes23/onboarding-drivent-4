@@ -1,6 +1,5 @@
 import app, { init } from "@/app";
 import faker from "@faker-js/faker";
-import { TicketStatus } from "@prisma/client";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
 import supertest from "supertest";
@@ -9,6 +8,7 @@ import {
   createHotel,
   createRoomWithHotelId,
   createBookingData,
+  createTicketTypeRemote,
 } from "../factories";
 
 import { cleanDb, generateValidToken } from "../helpers";
@@ -49,8 +49,8 @@ describe("GET /booking", () => {
 
   describe("when token is valid", () => {
     it("should respond with status 404 when user is not logged in", async () => {
-      const user = await createUser();
-      const token = await generateValidToken(user);
+      const token = await generateValidToken();
+      await createTicketTypeRemote();
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(httpStatus.NOT_FOUND);
