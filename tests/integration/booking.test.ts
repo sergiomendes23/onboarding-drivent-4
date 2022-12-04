@@ -50,9 +50,9 @@ describe("GET /booking", () => {
   describe("when token is valid", () => {
     it("should respond with status 404 when user is not logged in", async () => {
       const token = await generateValidToken();
-      await createTicketTypeRemote();
+      
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
-
+      
       expect(response.status).toBe(httpStatus.NOT_FOUND);
     });
     it("should respond with status 200 when booking is included in rooms data", async () => {
