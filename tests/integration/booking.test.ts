@@ -1,9 +1,18 @@
 import app, { init } from "@/app";
 import faker from "@faker-js/faker";
+import { TicketStatus } from "@prisma/client";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
 import supertest from "supertest";
-import { createUser, createHotel, createRoomWithHotelId, createBookingData } from "../factories";
+import {
+  createUser,
+  createHotel,
+  createRoomWithHotelId,
+  createBookingData,
+  createEnrollmentWithAddress,
+  createTicketTypeRemote,
+  createTicket,
+} from "../factories";
 
 import { cleanDb, generateValidToken } from "../helpers";
 
@@ -57,7 +66,6 @@ describe("GET /booking", () => {
       const booking = await createBookingData(user.id, room.id);
 
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`);
-
       expect(response.status).toBe(httpStatus.OK);
       expect(response.body).toEqual({
         id: booking.id,
@@ -120,6 +128,34 @@ describe("POST /booking", () => {
       const response = await server.get("/booking").set("Authorization", `Bearer ${token}`).send(body);
 
       expect(response.status).toBe(httpStatus.NOT_FOUND);
+    });
+    it("should respond with status 404 when it has no ticket for the user", async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      await createEnrollmentWithAddress(user);
+      const hotel = await createHotel();
+      const room = await createRoomWithHotelId(hotel.id);
+      const body = { roomId: room.id };
+
+      const response = await server.post("/booking").set("Authorization", `Bearer ${token}`).send(body);
+
+      expect(response.status).toBe(httpStatus.NOT_FOUND);
+    });
+    describe("when user is valid", () => {
+      it("should respond with status 401 when not including hotel or ticket is remote or ticket is reserved", async () => {
+        const user = await createUser();
+        const token = await generateValidToken(user);
+        const enrollment = await createEnrollmentWithAddress(user);
+        const ticketType = await createTicketTypeRemote();
+        await createTicket(enrollment.id, ticketType.id, TicketStatus.RESERVED);
+        const hotel = await createHotel();
+        const room = await createRoomWithHotelId(hotel.id);
+        const body = { roomId: room.id };
+
+        const response = await server.post("/booking").set("Authorization", `Bearer ${token}`).send(body);
+
+        expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+      });
     });
   });
 });

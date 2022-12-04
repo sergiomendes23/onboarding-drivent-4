@@ -1,5 +1,4 @@
 import { notFoundError, unauthorizedError } from "@/errors";
-import { cannotListHotelsError } from "@/errors/cannot-list-hotels-error";
 import bookingRepository from "@/repositories/booking-repository";
 import enrollmentRepository from "@/repositories/enrollment-repository";
 import ticketRepository from "@/repositories/ticket-repository";
@@ -22,10 +21,7 @@ async function postBookingService(userId: number, roomId: number) {
   if (!ticket || !enrollment || !roomId) {
     throw notFoundError();
   }
-  if (!ticket.TicketType.includesHotel || ticket.TicketType.isRemote) {
-    throw cannotListHotelsError;
-  }
-  if (ticket.status === TicketStatus.RESERVED) {
+  if (!ticket.TicketType.includesHotel || ticket.TicketType.isRemote || ticket.status === TicketStatus.RESERVED) {
     throw unauthorizedError();
   }
 
