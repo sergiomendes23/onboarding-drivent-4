@@ -36,7 +36,7 @@ async function postBookingService(userId: number, roomId: number) {
   return bookingData.id;
 }
 
-async function putBookingService(userId: number, roomId: number, bookingId: string): Promise<number> {
+async function putBookingService(userId: number, roomId: number, bookingId: string) {
   const roomBooking = await bookingRepository.getRoomBooking(roomId);
 
   if (!roomBooking || !roomId) {
@@ -49,7 +49,7 @@ async function putBookingService(userId: number, roomId: number, bookingId: stri
   const booking = await bookingRepository.getBookingWithUserId(userId);
   const bookingIdNumb = Number(bookingId);
 
-  if(bookingIdNumb !== booking.id || !booking || !bookingIdNumb) {
+  if (bookingIdNumb !== booking.id || !booking || !bookingIdNumb) {
     throw unauthorizedError();
   }
 

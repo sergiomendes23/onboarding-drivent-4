@@ -199,7 +199,7 @@ describe("POST /booking", () => {
   });
 });
 
-describe("PUT /booking/:bookingId", async () => {
+describe("PUT /booking/:bookingId", () => {
   it("should respond with status 401 if no token is given", async () => {
     const body = { roomId: faker.datatype.number() };
 
@@ -225,5 +225,17 @@ describe("PUT /booking/:bookingId", async () => {
     const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+  describe("When token is valid", () => {
+    it("should respond with status 404 when no roomId exists", async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      const hotel = await createHotel();
+      await createRoomWithHotelId(hotel.id);
+
+      const response = await server.put("/booking/0").set("Authorization", `Bearer ${token}`);
+
+      expect(response.status).toBe(httpStatus.NOT_FOUND);
+    });
   });
 });
