@@ -8,12 +8,13 @@ import {
   createUser,
   createHotel,
   createRoomWithHotelId,
-  createBookingData,
   createEnrollmentWithAddress,
   createTicketTypeRemote,
   createTicket,
   createPayment,
+  createTicketTypeWithHotel,
 } from "../factories";
+import { createBookingData, createBookingId } from "../factories/booking-factory";
 
 import { cleanDb, generateValidToken } from "../helpers";
 
@@ -166,7 +167,7 @@ describe("POST /booking", () => {
         const token = await generateValidToken(user);
         const enrollment = await createEnrollmentWithAddress(user);
         const ticketType = await createTicketTypeRemote();
-        const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.RESERVED);
+        const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
         await createPayment(ticket.id, ticketType.price);
         const hotel = await createHotel();
         const room = await createRoomWithHotelId(hotel.id);
@@ -175,6 +176,24 @@ describe("POST /booking", () => {
         const response = await server.post("/booking").set("Authorization", `Bearer ${token}`).send(body);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+      });
+      it("should respond with status 200 when have bookingId", async () => {
+        const user = await createUser();
+        const token = await generateValidToken(user);
+        const enrollment = await createEnrollmentWithAddress(user);
+        const ticketType = await createTicketTypeWithHotel();
+        await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
+        const hotel = await createHotel();
+        const room = await createRoomWithHotelId(hotel.id);
+        const body = { roomId: room.id };
+        const volta = await createBookingData(user.id, room.id);
+
+        const response = await server.post("/booking").set("Authorization", `Bearer ${token}`).send(body);
+
+        expect(response.status).toBe(httpStatus.OK);
+        expect(response.body).toEqual({
+          bookingId: volta.id,
+        });
       });
     });
   });

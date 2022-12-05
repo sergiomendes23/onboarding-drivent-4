@@ -25,19 +25,15 @@ async function postBookingService(userId: number, roomId: number) {
     throw unauthorizedError();
   }
 
-  const room = await bookingRepository.getRoomWithId(userId);
+  const roomBooking = await bookingRepository.getRoomBooking(roomId);
 
-  if (room.capacity === 0) {
+  if (roomBooking.Booking.length >= roomBooking.capacity) {
     throw unauthorizedError();
   }
 
   const bookingData = await bookingRepository.bookingData(userId, roomId);
 
-  const capacity = room.capacity - 1;
-
-  await bookingRepository.roomCapacity(roomId, capacity);
-
-  return bookingData;
+  return bookingData.id;
 }
 
 const bookingService = {
