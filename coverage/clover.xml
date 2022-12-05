@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1670201084067" clover="3.2.0">
-  <project timestamp="1670201084067" name="All files">
-    <metrics statements="583" coveredstatements="545" conditionals="82" coveredconditionals="58" methods="94" coveredmethods="86" elements="759" coveredelements="689" complexity="0" loc="583" ncloc="583" packages="26" files="63" classes="63"/>
+<coverage generated="1670250301172" clover="3.2.0">
+  <project timestamp="1670250301173" name="All files">
+    <metrics statements="606" coveredstatements="564" conditionals="92" coveredconditionals="66" methods="97" coveredmethods="88" elements="795" coveredelements="718" complexity="0" loc="606" ncloc="606" packages="26" files="63" classes="63"/>
     <package name="src">
       <metrics statements="22" coveredstatements="16" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="2"/>
       <file name="app.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/app.ts">
@@ -59,7 +59,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="143" coveredstatements="138" conditionals="17" coveredconditionals="15" methods="15" coveredmethods="15"/>
+      <metrics statements="154" coveredstatements="148" conditionals="19" coveredconditionals="17" methods="16" coveredmethods="16"/>
       <file name="authentication-controller.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/controllers/authentication-controller.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="11" type="stmt"/>
@@ -72,7 +72,7 @@
         <line num="12" count="2" type="stmt"/>
       </file>
       <file name="booking-controller.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/controllers/booking-controller.ts">
-        <metrics statements="19" coveredstatements="19" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
+        <metrics statements="30" coveredstatements="29" conditionals="5" coveredconditionals="5" methods="3" coveredmethods="3"/>
         <line num="3" count="11" type="stmt"/>
         <line num="4" count="11" type="stmt"/>
         <line num="6" count="11" type="stmt"/>
@@ -83,15 +83,26 @@
         <line num="12" count="3" type="cond" truecount="1" falsecount="0"/>
         <line num="13" count="3" type="stmt"/>
         <line num="18" count="11" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="25" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="25" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="26" count="1" type="stmt"/>
-        <line num="28" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="29" count="2" type="stmt"/>
+        <line num="28" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="34" count="11" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="46" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
       </file>
       <file name="enrollments-controller.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/controllers/enrollments-controller.ts">
         <metrics statements="20" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="3" coveredmethods="3"/>
@@ -271,7 +282,7 @@
       <file name="not-found-error.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/errors/not-found-error.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="11" type="stmt"/>
-        <line num="4" count="15" type="stmt"/>
+        <line num="4" count="16" type="stmt"/>
       </file>
       <file name="request-error.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/errors/request-error.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -281,7 +292,7 @@
       <file name="unauthorized-error.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/errors/unauthorized-error.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="11" type="stmt"/>
-        <line num="4" count="37" type="stmt"/>
+        <line num="4" count="42" type="stmt"/>
       </file>
     </package>
     <package name="src.middlewares">
@@ -293,18 +304,18 @@
         <line num="5" count="11" type="stmt"/>
         <line num="6" count="11" type="stmt"/>
         <line num="8" count="11" type="stmt"/>
-        <line num="9" count="77" type="stmt"/>
-        <line num="10" count="77" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="66" type="stmt"/>
-        <line num="13" count="66" type="cond" truecount="0" falsecount="1"/>
-        <line num="15" count="66" type="stmt"/>
-        <line num="16" count="66" type="stmt"/>
-        <line num="18" count="55" type="stmt"/>
-        <line num="23" count="55" type="cond" truecount="1" falsecount="0"/>
-        <line num="25" count="44" type="stmt"/>
-        <line num="27" count="44" type="stmt"/>
-        <line num="29" count="11" type="stmt"/>
-        <line num="34" count="33" type="stmt"/>
+        <line num="9" count="83" type="stmt"/>
+        <line num="10" count="83" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="71" type="stmt"/>
+        <line num="13" count="71" type="cond" truecount="0" falsecount="1"/>
+        <line num="15" count="71" type="stmt"/>
+        <line num="16" count="71" type="stmt"/>
+        <line num="18" count="59" type="stmt"/>
+        <line num="23" count="59" type="cond" truecount="1" falsecount="0"/>
+        <line num="25" count="47" type="stmt"/>
+        <line num="27" count="47" type="stmt"/>
+        <line num="29" count="12" type="stmt"/>
+        <line num="34" count="36" type="stmt"/>
       </file>
       <file name="error-handling-middleware.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/middlewares/error-handling-middleware.ts">
         <metrics statements="14" coveredstatements="2" conditionals="7" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -355,15 +366,16 @@
       </file>
     </package>
     <package name="src.repositories.booking-repository">
-      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
       <file name="index.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/repositories/booking-repository/index.ts">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="11" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="38" count="11" type="stmt"/>
-        <line num="44" count="11" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="49" count="11" type="stmt"/>
+        <line num="56" count="11" type="stmt"/>
       </file>
     </package>
     <package name="src.repositories.enrollment-repository">
@@ -371,7 +383,7 @@
       <file name="index.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/repositories/enrollment-repository/index.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="11" type="stmt"/>
-        <line num="5" count="21" type="stmt"/>
+        <line num="5" count="22" type="stmt"/>
         <line num="14" count="6" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
         <line num="36" count="11" type="stmt"/>
@@ -429,7 +441,7 @@
         <line num="5" count="2" type="stmt"/>
         <line num="9" count="8" type="stmt"/>
         <line num="19" count="3" type="stmt"/>
-        <line num="30" count="15" type="stmt"/>
+        <line num="30" count="16" type="stmt"/>
         <line num="41" count="2" type="stmt"/>
         <line num="49" count="3" type="stmt"/>
         <line num="61" count="11" type="stmt"/>
@@ -469,7 +481,7 @@
         <line num="3" count="11" type="stmt"/>
         <line num="5" count="11" type="stmt"/>
         <line num="7" count="11" type="stmt"/>
-        <line num="12" count="11" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
       </file>
       <file name="enrollments-router.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/routers/enrollments-router.ts">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -625,9 +637,9 @@
       </file>
     </package>
     <package name="src.services.booking-service">
-      <metrics statements="22" coveredstatements="21" conditionals="10" coveredconditionals="9" methods="2" coveredmethods="2"/>
+      <metrics statements="33" coveredstatements="30" conditionals="18" coveredconditionals="15" methods="3" coveredmethods="3"/>
       <file name="index.ts" path="/home/sergiomendes/Documents/Projetos/onboarding-drivent-4/src/services/booking-service/index.ts">
-        <metrics statements="22" coveredstatements="21" conditionals="10" coveredconditionals="9" methods="2" coveredmethods="2"/>
+        <metrics statements="33" coveredstatements="30" conditionals="18" coveredconditionals="15" methods="3" coveredmethods="3"/>
         <line num="1" count="11" type="stmt"/>
         <line num="2" count="11" type="stmt"/>
         <line num="3" count="11" type="stmt"/>
@@ -637,19 +649,30 @@
         <line num="10" count="4" type="cond" truecount="1" falsecount="0"/>
         <line num="11" count="3" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="21" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="21" count="5" type="cond" truecount="4" falsecount="0"/>
         <line num="22" count="1" type="stmt"/>
-        <line num="24" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="24" count="4" type="cond" truecount="4" falsecount="0"/>
         <line num="25" count="2" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="30" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="31" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
-        <line num="39" count="11" type="stmt"/>
-        <line num="44" count="11" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="42" count="2" type="cond" truecount="3" falsecount="0"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="45" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="52" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="60" count="11" type="stmt"/>
+        <line num="66" count="11" type="stmt"/>
       </file>
     </package>
     <package name="src.services.enrollments-service">

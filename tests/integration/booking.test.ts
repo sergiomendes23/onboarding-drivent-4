@@ -178,6 +178,21 @@ describe("POST /booking", () => {
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
       });
+      it("should respond with status 401 when the room has no more capacity", async () => {
+        const user = await createUser();
+        const token = await generateValidToken(user);
+        const enrollment = await createEnrollmentWithAddress(user);
+        const ticketType = await createTicketTypeWithHotel();
+        await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
+        const hotel = await createHotel();
+        const room = await createRoomWithoutCapacity(hotel.id);
+        const body = { roomId: room.id };
+        await createBookingData(user.id, room.id);
+
+        const response = await server.post("/booking").set("Authorization", `Bearer ${token}`).send(body);
+
+        expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+      });
       it("should respond with status 200 when have bookingId", async () => {
         const user = await createUser();
         const token = await generateValidToken(user);
@@ -247,10 +262,43 @@ describe("PUT /booking/:bookingId", () => {
       const body = { roomId: room.id };
       await createBookingData(user.id, room.id);
       await createBookingData(user.id, capacityRoom.id);
-      
+
       const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
 
       expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+    });
+    it("should respond with status 401 when the user is not the owner of the booking", async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      const hotel = await createHotel();
+      const room = await createRoomWithHotelId(hotel.id);
+      const body = { roomId: room.id };
+      await createBookingData(user.id, room.id);
+      const compareUser = await createUser();
+      const comparteBooking = await createBookingData(compareUser.id, room.id);
+
+      const response = await server
+        .put(`/booking/${comparteBooking.id}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(body);
+
+      expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+    });
+    it("should respond with status 200 when have bookingId", async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      const hotel = await createHotel();
+      const room = await createRoomWithHotelId(hotel.id);
+      const capacityRoom = await createRoomWithHotelId(hotel.id);
+      const body = { roomId: capacityRoom.id };
+      const booking = await createBookingData(user.id, room.id);
+
+      const response = await server.put(`/booking/${booking.id}`).set("Authorization", `Bearer ${token}`).send(body);
+
+      expect(response.status).toBe(httpStatus.OK);
+      expect(response.body).toEqual({
+        booking: expect.any(Number),
+      });
     });
   });
 });
