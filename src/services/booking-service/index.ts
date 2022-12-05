@@ -36,7 +36,7 @@ async function postBookingService(userId: number, roomId: number) {
   return bookingData.id;
 }
 
-async function putBookingService(userId: number, roomId: number, bookingId: number) {
+async function putBookingService(userId: number, roomId: number, bookingId: string): Promise<number> {
   const roomBooking = await bookingRepository.getRoomBooking(roomId);
 
   if (!roomBooking || !roomId) {

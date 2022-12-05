@@ -31,3 +31,20 @@ export async function postBooking(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function putBooking(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { bookingId } = req.params;
+  const roomId: number = req.body.roomId;
+
+  try {
+    const booking = await bookingService.putBookingService(userId, roomId, bookingId);
+    return res.status(httpStatus.OK).send({ booking });
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
+    if (error.name === "UnauthorizedError") {
+      return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+  }
+}
