@@ -186,13 +186,13 @@ describe("POST /booking", () => {
         const hotel = await createHotel();
         const room = await createRoomWithHotelId(hotel.id);
         const body = { roomId: room.id };
-        const volta = await createBookingData(user.id, room.id);
+        await createBookingData(user.id, room.id);
 
         const response = await server.post("/booking").set("Authorization", `Bearer ${token}`).send(body);
 
         expect(response.status).toBe(httpStatus.OK);
         expect(response.body).toEqual({
-          bookingId: volta.id,
+          booking: expect.any(Number),
         });
       });
     });
