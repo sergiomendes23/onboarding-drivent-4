@@ -8,11 +8,3 @@ export async function createBookingData(userId: number, roomId: number) {
     },
   });
 }
-
-export async function createBookingId(userId: number) {
-  return prisma.booking.findFirst({
-    where: {
-      userId,
-    },
-  });
-}

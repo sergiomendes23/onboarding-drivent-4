@@ -9,12 +9,12 @@ import {
   createHotel,
   createRoomWithHotelId,
   createEnrollmentWithAddress,
+  createBookingData,
   createTicketTypeRemote,
   createTicket,
   createPayment,
   createTicketTypeWithHotel,
 } from "../factories";
-import { createBookingData, createBookingId } from "../factories/booking-factory";
 
 import { cleanDb, generateValidToken } from "../helpers";
 
@@ -192,9 +192,38 @@ describe("POST /booking", () => {
 
         expect(response.status).toBe(httpStatus.OK);
         expect(response.body).toEqual({
-          booking: expect.any(Number),
+          bookingId: expect.any(Number),
         });
       });
     });
+  });
+});
+
+describe("PUT /booking/:bookingId", async () => {
+  it("should respond with status 401 if no token is given", async () => {
+    const body = { roomId: faker.datatype.number() };
+
+    const response = await server.put("/booking/1").send(body);
+
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  it("should respond with status 401 if given token is not valid", async () => {
+    const token = faker.lorem.word();
+    const body = { roomId: faker.datatype.number() };
+
+    const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
+
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  it("should respond with status 401 if there is no session for given token", async () => {
+    const userWithoutSession = await createUser();
+    const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
+    const body = { roomId: faker.datatype.number() };
+
+    const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
+
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
 });

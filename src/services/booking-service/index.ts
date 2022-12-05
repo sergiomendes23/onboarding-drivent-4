@@ -36,9 +36,31 @@ async function postBookingService(userId: number, roomId: number) {
   return bookingData.id;
 }
 
+async function putBookingService(userId: number, roomId: number, bookingId: number) {
+  const roomBooking = await bookingRepository.getRoomBooking(roomId);
+
+  if (!roomBooking || !roomId) {
+    throw notFoundError();
+  }
+  if (roomBooking.Booking.length >= roomBooking.capacity) {
+    throw unauthorizedError();
+  }
+
+  const booking = await bookingRepository.getBookingWithUserId(userId);
+  const bookingIdNumb = Number(bookingId);
+
+  if(bookingIdNumb !== booking.id || !booking || !bookingIdNumb) {
+    throw unauthorizedError();
+  }
+
+  const bookingData = await bookingRepository.bookingUpdate(bookingIdNumb, roomId);
+
+  return bookingData.id;
+}
 const bookingService = {
   getBookingService,
   postBookingService,
+  putBookingService,
 };
 
 export default bookingService;
