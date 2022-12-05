@@ -217,7 +217,7 @@ describe("POST /booking", () => {
 
 describe("PUT /booking/:bookingId", () => {
   it("should respond with status 401 if no token is given", async () => {
-    const body = { roomId: faker.datatype.number() };
+    const body = { roomId: "" };
 
     const response = await server.put("/booking/1").send(body);
 
@@ -226,7 +226,7 @@ describe("PUT /booking/:bookingId", () => {
 
   it("should respond with status 401 if given token is not valid", async () => {
     const token = faker.lorem.word();
-    const body = { roomId: faker.datatype.number() };
+    const body = { roomId: "" };
 
     const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
 
@@ -236,7 +236,7 @@ describe("PUT /booking/:bookingId", () => {
   it("should respond with status 401 if there is no session for given token", async () => {
     const userWithoutSession = await createUser();
     const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
-    const body = { roomId: faker.datatype.number() };
+    const body = { roomId: "" };
 
     const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
 
@@ -260,7 +260,7 @@ describe("PUT /booking/:bookingId", () => {
       const room = await createRoomWithHotelId(hotel.id);
       const capacityRoom = await createRoomWithoutCapacity(hotel.id);
       const body = { roomId: room.id };
-      await createBookingData(user.id, room.id);
+      const booking = await createBookingData(user.id, room.id);
       await createBookingData(user.id, capacityRoom.id);
 
       const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
