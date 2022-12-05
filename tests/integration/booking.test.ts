@@ -14,6 +14,7 @@ import {
   createTicket,
   createPayment,
   createTicketTypeWithHotel,
+  createRoomWithoutCapacity,
 } from "../factories";
 
 import { cleanDb, generateValidToken } from "../helpers";
@@ -233,9 +234,23 @@ describe("PUT /booking/:bookingId", () => {
       const hotel = await createHotel();
       await createRoomWithHotelId(hotel.id);
 
-      const response = await server.put("/booking/0").set("Authorization", `Bearer ${token}`);
+      const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(httpStatus.NOT_FOUND);
+    });
+    it("should respond with status 401 when the room has no more capacity", async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      const hotel = await createHotel();
+      const room = await createRoomWithHotelId(hotel.id);
+      const capacityRoom = await createRoomWithoutCapacity(hotel.id);
+      const body = { roomId: room.id };
+      await createBookingData(user.id, room.id);
+      await createBookingData(user.id, capacityRoom.id);
+      
+      const response = await server.put("/booking/1").set("Authorization", `Bearer ${token}`).send(body);
+
+      expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
   });
 });
